@@ -4,17 +4,17 @@ library (timeSeries)
 library (forecast)
 library (xts)
 
-getSymbols('GOOG', from='2012-01-01', to='2018-01-01')
+getSymbols('GOOG', from='2012-01-01', to='2018-04-24')
 stockPrices = GOOG[,4]
 
 stock = diff(log(stockPrices), lag=32)
 stock = stock[!is.na(stock)]
-
+print(median(stock) )
 plot(stock, type='l', main='log returns plot')
 
 print(adf.test(stock))
 
-# Splits into training and testing 66% and 33%
+# Splits into training and testing 96% and 4%
 breakpoint = floor(nrow(stock)*(2.9/3))
 
 # Apply ACF and PACF function to get the plot that'll help in lag value
